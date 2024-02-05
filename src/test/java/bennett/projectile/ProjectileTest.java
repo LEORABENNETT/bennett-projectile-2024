@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProjectileTest {
 
     @Test
-    void getX() {
+    public void getX() {
         // given
         Projectile projectile = new Projectile(31, 20);
         projectile.setSeconds(2.7);
