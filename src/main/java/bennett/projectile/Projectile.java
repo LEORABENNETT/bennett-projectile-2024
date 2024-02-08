@@ -1,5 +1,7 @@
 package bennett.projectile;
 
+import static java.lang.Math.sin;
+
 public class Projectile {
     // class is a way to organize code
     // private means not accessible outside the class, limited scope
@@ -24,7 +26,7 @@ public class Projectile {
     }
 
     public double getY() {
-        return Math.sin(radians) * velocity * seconds
+        return sin(radians) * velocity * seconds
                 - .5 * GRAVITY * seconds * seconds;
     }
 
@@ -33,11 +35,10 @@ public class Projectile {
      */
 
     public double getApexTime() {
-        return velocity * Math.sin(radians) / 9.8;
+        return velocity * sin(radians) / 9.8;
     }
 
     public double getPeakY() {
-        return Math.pow(velocity * Math.sin(radians), 2) / (2 * GRAVITY);
-        // https://www.quora.com/How-do-I-find-the-height-of-a-projectile-with-initial-velocity-and-angle
+        return (sin(radians) * velocity) * (sin(radians) * velocity) / (2 * GRAVITY);
     }
 }
