@@ -7,7 +7,7 @@ public class Projectile {
     private final double radians;
     private final double velocity;
     private double seconds;
-    private final double GRAVITY = 9.8;
+    private final double gravity = 9.8;
 
     public Projectile(double angle, double velocity) {
         this.angle = angle;
@@ -25,7 +25,7 @@ public class Projectile {
 
     public double getY() {
         return Math.sin(radians) * velocity * seconds
-                - .5 * GRAVITY * seconds * seconds;
+                - .5 * gravity * seconds * seconds;
     }
 
     /**
@@ -37,7 +37,7 @@ public class Projectile {
     }
 
     public double getPeakY() {
-        return Math.pow(velocity * Math.sin(radians), 2) / (2 * GRAVITY);
+        return Math.pow(velocity * Math.sin(radians), 2) / (2 * gravity);
         // https://www.quora.com/How-do-I-find-the-height-of-a-projectile-with-initial-velocity-and-angle
     }
 }
