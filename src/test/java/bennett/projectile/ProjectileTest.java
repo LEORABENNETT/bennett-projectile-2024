@@ -36,7 +36,6 @@ class ProjectileTest {
     public void getApexTime() {
         // given
         Projectile projectile = new Projectile(31, 65);
-        projectile.setSeconds(2.7);
 
         // when
         double actual = projectile.getApexTime();
@@ -49,7 +48,6 @@ class ProjectileTest {
     public void getPeakY() {
         // given
         Projectile projectile = new Projectile(31, 65);
-        projectile.setSeconds(2.7);
 
         // when
         double actual = projectile.getPeakY();
