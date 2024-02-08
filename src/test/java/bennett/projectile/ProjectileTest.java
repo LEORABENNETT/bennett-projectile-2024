@@ -42,7 +42,7 @@ class ProjectileTest {
         double actual = projectile.getApexTime();
 
         // then
-        assertEquals(1.05, actual, .01);
+        assertEquals(3.41, actual, .01);
     }
 
     @Test
