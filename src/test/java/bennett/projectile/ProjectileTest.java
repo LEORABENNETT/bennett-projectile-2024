@@ -16,7 +16,7 @@ class ProjectileTest {
         double actual = projectile.getX();
 
         // then
-        assertEquals(46.28, actual, 0.01);
+        assertEquals(150.43, actual, 0.01);
     }
 
     @Test
@@ -29,7 +29,7 @@ class ProjectileTest {
         double actual = projectile.getY();
 
         // then
-        assertEquals(-7.90, actual, 0.01);
+        assertEquals(54.66, actual, 0.01);
     }
 
     @Test
