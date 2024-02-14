@@ -41,4 +41,10 @@ public class Projectile {
     public double getPeakY() {
         return (sin(radians) * velocity) * (sin(radians) * velocity) / (2 * GRAVITY);
     }
+
+    public double getInterceptX() {
+        double t = 2 * sin(radians) * velocity / GRAVITY;
+
+        return Math.cos(radians) * velocity * t;
+    }
 }
