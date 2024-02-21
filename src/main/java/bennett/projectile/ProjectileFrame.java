@@ -1,12 +1,7 @@
 package bennett.projectile;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ProjectileFrame extends JFrame {
     static final int ANGLE_MIN = 0;
@@ -75,27 +70,11 @@ public class ProjectileFrame extends JFrame {
         JButton calculateButton = new JButton("Calculate");
         add(calculateButton);
 
-        velocityField.getDocument().addDocumentListener(new SimpleDocumentListener() {
-            @Override
-            public void update(DocumentEvent e) {
-                projectileAction();
-            }
-        });
+        velocityField.getDocument().addDocumentListener((SimpleDocumentListener) e -> projectileAction());
 
-        angleSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                projectileAction();
-            }
-        });
+        angleSlider.addChangeListener(e -> projectileAction());
 
-
-        calculateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                projectileAction();
-            }
-        });
+        calculateButton.addActionListener(e -> projectileAction());
 
     }
 
