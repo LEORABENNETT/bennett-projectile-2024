@@ -43,6 +43,7 @@ public class ProjectileFrame extends JFrame {
         add(labelY);
 
         JTextField velocityField = new JTextField();
+        add(velocityField);
         //JTextField angleField = new JTextField();
         JTextField secondsField = new JTextField();
         add(secondsField);
@@ -51,26 +52,21 @@ public class ProjectileFrame extends JFrame {
         JLabel calculatedLabelY = new JLabel();
         add(calculatedLabelY);
         JLabel empty = new JLabel();
+        add(empty);
         JButton calculateButton = new JButton("Calculate");
-        JLabel peakYLabel = new JLabel("Peak Y");
-        JLabel interceptXLabel = new JLabel("Intercept X");
+        add(calculateButton);
+        JLabel peakLabelY = new JLabel("Peak Y");
+        add(peakLabelY);
+        JLabel interceptLabelX = new JLabel("Intercept X");
+        add(interceptLabelX);
         JLabel peakY = new JLabel();
-        JLabel interceptX = new JLabel();
-
-
-        add(velocityField);
-        add(angleSlider);
-        //add(angleField);
-
-        add(peakYLabel);
         add(peakY);
-
-        add(interceptXLabel);
+        JLabel interceptX = new JLabel();
         add(interceptX);
 
-        add(empty);
-        add(calculateButton);
 
+        add(angleSlider);
+        //add(angleField);
 
         velocityField.getDocument().addDocumentListener(new SimpleDocumentListener() {
             @Override
