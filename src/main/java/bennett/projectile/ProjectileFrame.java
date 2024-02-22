@@ -16,19 +16,27 @@ public class ProjectileFrame extends JFrame {
     private final JLabel interceptX;
 
     public ProjectileFrame() {
-        setSize(400, 600);
+        setSize(1000, 600);
         setTitle("Projectile Calculator");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        setLayout(new GridLayout(8, 2));
+        JPanel main = new JPanel();
+        main.setLayout(new BorderLayout());
+
+        JPanel west = new JPanel();
+        main.add(west, BorderLayout.WEST);
+        // tells the JFrame to use this JPanel
+        setContentPane(main);
+
+        west.setLayout(new GridLayout(8, 2));
         JLabel velocityLabel = new JLabel("Velocity");
-        add(velocityLabel);
+        west.add(velocityLabel);
 
         velocityField = new JTextField();
-        add(velocityField);
+        west.add(velocityField);
 
         JLabel angleLabel = new JLabel("Angle");
-        add(angleLabel);
+        west.add(angleLabel);
 
          angleSlider = new JSlider(JSlider.HORIZONTAL,
                 ANGLE_MIN, ANGLE_MAX, ANGLE_INIT);
@@ -38,43 +46,46 @@ public class ProjectileFrame extends JFrame {
         angleSlider.setPaintTicks(true);
         angleSlider.setPaintLabels(true);
 
-        add(angleSlider);
+        west.add(angleSlider);
 
         JLabel secondsLabel = new JLabel("Seconds");
-        add(secondsLabel);
+        west.add(secondsLabel);
         secondsField = new JTextField();
-        add(secondsField);
+        west.add(secondsField);
 
         JLabel labelX = new JLabel("X");
-        add(labelX);
+        west.add(labelX);
         calculatedLabelX = new JLabel();
-        add(calculatedLabelX);
+        west.add(calculatedLabelX);
 
         JLabel labelY = new JLabel("Y");
-        add(labelY);
+        west.add(labelY);
         calculatedLabelY = new JLabel();
-        add(calculatedLabelY);
+        west.add(calculatedLabelY);
 
         JLabel peakLabelY = new JLabel("Peak Y");
-        add(peakLabelY);
+        west.add(peakLabelY);
         peakY = new JLabel();
-        add(peakY);
+        west.add(peakY);
 
         JLabel interceptLabelX = new JLabel("Intercept X");
-        add(interceptLabelX);
+        west.add(interceptLabelX);
         interceptX = new JLabel();
-        add(interceptX);
+        west.add(interceptX);
 
         JLabel empty = new JLabel();
-        add(empty);
+        west.add(empty);
         JButton calculateButton = new JButton("Calculate");
-        add(calculateButton);
+        west.add(calculateButton);
 
         velocityField.getDocument().addDocumentListener((SimpleDocumentListener) e -> projectileAction());
 
         angleSlider.addChangeListener(e -> projectileAction());
 
         calculateButton.addActionListener(e -> projectileAction());
+
+        ProjectileGraph graph = new ProjectileGraph();
+        main.add(graph, BorderLayout.CENTER);
 
     }
 
@@ -91,4 +102,5 @@ public class ProjectileFrame extends JFrame {
         peakY.setText(Double.toString(projectile.getPeakY()));
         interceptX.setText(Double.toString(projectile.getInterceptX()));
     }
+
 }
