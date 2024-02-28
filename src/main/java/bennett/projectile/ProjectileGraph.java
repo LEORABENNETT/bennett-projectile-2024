@@ -21,14 +21,14 @@ public class ProjectileGraph extends JComponent {
         // basic draw calls to know about
         g.translate(0, getHeight());
         // negative values if change origin
-//        g.drawString("(100, 100)", 100, -100);
-//        g.setColor(Color.GREEN);
-//        g.drawLine(0, 0, getWidth(), -getHeight());
-//        g.drawRect(200, -200, 50, 50);
-//        g.setColor(Color.MAGENTA);
-//        g.fillRect(400, -400, 25, 25);
-//        g.setColor(Color.ORANGE);
-//        g.drawOval(200, -200, 50, 50);
+        /*g.drawString("(100, 100)", 100, -100);
+        g.setColor(Color.GREEN);
+        g.drawLine(0, 0, getWidth(), -getHeight());
+        g.drawRect(200, -200, 50, 50);
+        g.setColor(Color.MAGENTA);
+        g.fillRect(400, -400, 25, 25);
+        g.setColor(Color.ORANGE);
+        g.drawOval(200, -200, 50, 50);*/
 
         g.setColor(Color.BLACK);
 
