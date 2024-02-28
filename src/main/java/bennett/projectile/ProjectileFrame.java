@@ -15,6 +15,8 @@ public class ProjectileFrame extends JFrame {
     private final JLabel peakY;
     private final JLabel interceptX;
 
+    private ProjectileGraph graph = new ProjectileGraph();
+
     public ProjectileFrame() {
         setSize(1000, 600);
         setTitle("Projectile Calculator");
@@ -84,7 +86,6 @@ public class ProjectileFrame extends JFrame {
 
         calculateButton.addActionListener(e -> projectileAction());
 
-        ProjectileGraph graph = new ProjectileGraph();
         main.add(graph, BorderLayout.CENTER);
 
     }
@@ -101,6 +102,8 @@ public class ProjectileFrame extends JFrame {
         calculatedLabelY.setText(Double.toString(projectile.getY()));
         peakY.setText(Double.toString(projectile.getPeakY()));
         interceptX.setText(Double.toString(projectile.getInterceptX()));
+
+        graph.setProjectile(projectile);
     }
 
 }
