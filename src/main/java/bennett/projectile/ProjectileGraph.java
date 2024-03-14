@@ -58,8 +58,12 @@ public class ProjectileGraph extends JComponent {
                 10
         );
 
-        g.drawString("(" + FORMAT.format(projectile.getX()) + ", " +
-                        FORMAT.format(projectile.getPeakY()) + ")", ((int) projectile.getX() / 2) - 7,
+        g.drawString("("
+                        + FORMAT.format(projectile.getX())
+                        + ", "
+                        +
+                        FORMAT.format(projectile.getPeakY())
+                        + ")", ((int) projectile.getX() / 2) - 7,
                 (int) -projectile.getPeakY() - 7);
 
 
@@ -69,8 +73,12 @@ public class ProjectileGraph extends JComponent {
                 10,
                 10
         );
-        g.drawString("(" + FORMAT.format(secondsProjectile.getX()) + ", " +
-                        FORMAT.format(-secondsProjectile.getY()) + ")",
+        g.drawString("("
+                        + FORMAT.format(secondsProjectile.getX())
+                        + ", "
+                        +
+                        FORMAT.format(-secondsProjectile.getY())
+                        + ")",
                 (int) (secondsProjectile.getX()), (int) (-secondsProjectile.getY()));
     }
 
