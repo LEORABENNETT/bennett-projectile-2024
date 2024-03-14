@@ -1,41 +1,44 @@
 package bennett.projectile;
 
+import bennett.projectile.Projectile;
+
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
 
 public class ProjectileGraph extends JComponent {
-    // JComponent is super class
 
     private Projectile projectile = new Projectile(0, 0);
+    Projectile secondsProjectile = new Projectile(projectile);
 
-    // homework: draw a projectile graph, the path of a projectile
-    // draw an arc
-    // arc = series of lines
-    // put one dot in blue at the peak
-    // PR put up - must include a screenshot
+    private static final DecimalFormat FORMAT = new DecimalFormat("0.00");
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // basic draw calls to know about
-        g.translate(0, getHeight());
-        // negative values if change origin
-        /*g.drawString("(100, 100)", 100, -100);
-        g.setColor(Color.GREEN);
-        g.drawLine(0, 0, getWidth(), -getHeight());
-        g.drawRect(200, -200, 50, 50);
-        g.setColor(Color.MAGENTA);
-        g.fillRect(400, -400, 25, 25);
-        g.setColor(Color.ORANGE);
-        g.drawOval(200, -200, 50, 50);*/
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+        g.setColor(Color.LIGHT_GRAY);
+        for (int i = 30; i < getWidth(); i += 30) {
+            g.drawLine(i, 0, i, getHeight());
+        }
+        for (int i = 30; i < getHeight(); i += 30) {
+            g.drawLine(0, i, getWidth(), i);
+        }
+
+        g.setColor(Color.BLACK);
+        g.drawLine(30, getHeight() - 30, getWidth(), getHeight() - 30);
+        g.drawLine(30, getHeight() - 30, 30, 0);
+
+        g.translate(30, getHeight() - 30);
 
         g.setColor(Color.BLACK);
 
         projectile.setSeconds(0);
 
-        for (int i = 0; i <= (projectile.getApexTime() * 2) + 1; i++)
-        {
+        for (int i = 0; i <= (projectile.getApexTime() * 2) + 1; i++) {
             double currX = projectile.getX();
             double currY = projectile.getY();
 
@@ -49,18 +52,42 @@ public class ProjectileGraph extends JComponent {
 
         g.setColor(Color.BLUE);
         g.fillOval(
-                ((int) projectile.getX() / 2) - 6,
-                (int) -projectile.getPeakY() - 4,
+                ((int) projectile.getX() / 2) - 5,
+                (int) -projectile.getPeakY() - 5,
                 10,
                 10
         );
 
+        g.drawString("("
+                        + FORMAT.format(projectile.getX())
+                        + ", "
+                        +
+                        FORMAT.format(projectile.getPeakY())
+                        + ")", ((int) projectile.getX() / 2) - 7,
+                (int) -projectile.getPeakY() - 7);
+
+
+        g.setColor(Color.RED);
+        g.fillOval((int) (secondsProjectile.getX()),
+                (int) (-secondsProjectile.getY()),
+                10,
+                10
+        );
+        g.drawString("("
+                        + FORMAT.format(secondsProjectile.getX())
+                        + ", "
+                        +
+                        FORMAT.format(-secondsProjectile.getY())
+                        + ")",
+                (int) (secondsProjectile.getX()), (int) (-secondsProjectile.getY()));
     }
+
 
     public void setProjectile(Projectile projectile) {
         this.projectile = projectile;
-
-        // tells the operating system to call paintComponent() again.
+        this.secondsProjectile = new Projectile(projectile);
         repaint();
     }
+
 }
+

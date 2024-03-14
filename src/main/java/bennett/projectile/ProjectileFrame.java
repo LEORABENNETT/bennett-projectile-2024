@@ -1,21 +1,30 @@
 package bennett.projectile;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 
 public class ProjectileFrame extends JFrame {
-    static final int ANGLE_MIN = 0;
-    static final int ANGLE_MAX = 90;
-    static final int ANGLE_INIT = 45;
+    private static final int VELOCITY_MIN = 0;
+    private static final int VELOCITY_MAX = 100;
+    private static final int VELOCITY_INIT = 65;
+    private static final int ANGLE_MIN = 0;
+    private static final int ANGLE_MAX = 90;
+    private static final int ANGLE_INIT = 31;
+    private static final double SECONDS_INIT = 2.7;
+
+    private final JSlider velocitySlider;
     private final JSlider angleSlider;
     private final JTextField velocityField;
+    private final JTextField angleField;
     private final JTextField secondsField;
     private final JLabel calculatedLabelX;
     private final JLabel calculatedLabelY;
     private final JLabel peakY;
     private final JLabel interceptX;
 
-    private ProjectileGraph graph = new ProjectileGraph();
+    private final ProjectileGraph graph = new ProjectileGraph();
 
     public ProjectileFrame() {
         setSize(1000, 600);
@@ -24,35 +33,39 @@ public class ProjectileFrame extends JFrame {
 
         JPanel main = new JPanel();
         main.setLayout(new BorderLayout());
+        setContentPane(main);
 
         JPanel west = new JPanel();
         main.add(west, BorderLayout.WEST);
-        // tells the JFrame to use this JPanel
-        setContentPane(main);
+        west.setLayout(new GridLayout(9, 2));
 
-        west.setLayout(new GridLayout(8, 2));
         JLabel velocityLabel = new JLabel("Velocity");
         west.add(velocityLabel);
-
-        velocityField = new JTextField();
+        velocityField = new JTextField(String.valueOf(VELOCITY_INIT));
         west.add(velocityField);
+
+        velocitySlider = new JSlider(JSlider.HORIZONTAL, VELOCITY_MIN, VELOCITY_MAX, VELOCITY_INIT);
+        velocitySlider.setMajorTickSpacing(20);
+        velocitySlider.setMinorTickSpacing(10);
+        velocitySlider.setPaintTicks(true);
+        velocitySlider.setPaintLabels(true);
+        west.add(velocitySlider);
 
         JLabel angleLabel = new JLabel("Angle");
         west.add(angleLabel);
+        angleField = new JTextField(String.valueOf(ANGLE_INIT));
+        west.add(angleField);
 
-         angleSlider = new JSlider(JSlider.HORIZONTAL,
-                ANGLE_MIN, ANGLE_MAX, ANGLE_INIT);
-
+        angleSlider = new JSlider(JSlider.HORIZONTAL, ANGLE_MIN, ANGLE_MAX, ANGLE_INIT);
         angleSlider.setMajorTickSpacing(10);
         angleSlider.setMinorTickSpacing(5);
         angleSlider.setPaintTicks(true);
         angleSlider.setPaintLabels(true);
-
         west.add(angleSlider);
 
         JLabel secondsLabel = new JLabel("Seconds");
         west.add(secondsLabel);
-        secondsField = new JTextField();
+        secondsField = new JTextField(String.valueOf(SECONDS_INIT));
         west.add(secondsField);
 
         JLabel labelX = new JLabel("X");
@@ -75,35 +88,55 @@ public class ProjectileFrame extends JFrame {
         interceptX = new JLabel();
         west.add(interceptX);
 
-        JLabel empty = new JLabel();
-        west.add(empty);
         JButton calculateButton = new JButton("Calculate");
+        west.add(new JLabel());
         west.add(calculateButton);
 
-        velocityField.getDocument().addDocumentListener((SimpleDocumentListener) e -> projectileAction());
+        velocitySlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                velocityField.setText(String.valueOf(velocitySlider.getValue()));
+                projectileAction();
+            }
+        });
 
-        angleSlider.addChangeListener(e -> projectileAction());
+        angleSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                angleField.setText(String.valueOf(angleSlider.getValue()));
+                projectileAction();
+            }
+        });
 
         calculateButton.addActionListener(e -> projectileAction());
 
         main.add(graph, BorderLayout.CENTER);
 
+        // default values
+        velocitySlider.setValue(VELOCITY_INIT);
+        angleSlider.setValue(ANGLE_INIT);
+        secondsField.setText(String.valueOf(SECONDS_INIT));
     }
 
     private void projectileAction() {
         Projectile projectile = new Projectile(
-                angleSlider.getValue(),
-                Double.parseDouble(String.valueOf(velocityField.getText()))
+                Double.parseDouble(velocityField.getText()),
+                Double.parseDouble(angleField.getText())
         );
-        projectile.setSeconds(
-                Double.parseDouble(secondsField.getText())
-        );
-        calculatedLabelX.setText(Double.toString(projectile.getX()));
-        calculatedLabelY.setText(Double.toString(projectile.getY()));
-        peakY.setText(Double.toString(projectile.getPeakY()));
-        interceptX.setText(Double.toString(projectile.getInterceptX()));
+        projectile.setSeconds(Double.parseDouble(secondsField.getText()));
+
+        calculatedLabelX.setText(String.valueOf(projectile.getX()));
+        calculatedLabelY.setText(String.valueOf(projectile.getY()));
+        peakY.setText(String.valueOf(projectile.getPeakY()));
+        interceptX.setText(String.valueOf(projectile.getInterceptX()));
 
         graph.setProjectile(projectile);
     }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            ProjectileFrame frame = new ProjectileFrame();
+            frame.setVisible(true);
+        });
+    }
 }
